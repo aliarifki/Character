@@ -7,9 +7,11 @@ class Character{
     // Constructors
     Character(); ///default
 
+    // Accessors
+    float max_speed() const;
 
     // Function members
-    void Accelerate();
+    virtual void Accelerate();
     void Break();
     virtual std::string WhatAmI() const = 0;
 
@@ -24,25 +26,38 @@ class Character{
     float max_speed_;
 };
 
+
+
 class Mario : public Character{
     public:
-
+    // Function members
     std::string WhatAmI() const{
     return "Mario";
+    };
 };
-};
+
+
 
 class Yoshi : public Character{
     public:
+    // Constructor
+    Yoshi(int number_of_crests=3);
 
+    // Function members
     void Accelerate(){
     if(speed_<max_speed_){
         speed_+=2;
     }
-};
+    };
+    
     std::string WhatAmI() const{
-    return "Yoshi";
-};
+    std::string nb = std::to_string(number_of_crests_) ;
+    return nb + " crested Yoshi";
+    };
+
+    protected:
+    int number_of_crests_;
+
 };
 
 

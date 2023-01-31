@@ -1,34 +1,43 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include "Character.h"
 
 using std::cout;
 using std::endl;
 
 int main(){
-    Mario aaa;
-    Yoshi bbb;
-    //cout << "whatami"<< aaa.WhatAmI() << endl;
+
+    //Creation du container (sous forme de tableau dynamique)
+    std::vector<Character*> course;
+    course.push_back(new Mario);
+    course.push_back(new Yoshi);
     
-    float vitesseM = aaa.speed();
-    cout<< "vitesse initiale de "<<aaa.WhatAmI()<<" "<<vitesseM<<endl;
-    aaa.Accelerate();
-    vitesseM = aaa.speed();
-    cout<< "vitesse finale de "<<aaa.WhatAmI()<<" "<<vitesseM<<endl;
+    //On simule une course de vitesse ou le premier qui atteint la vitesse maximale a gagne
+    Character* gagnant;
+    bool finDeLaCourse(false);
+    int tour(1);
 
-    float vitesseY = bbb.speed();
-    cout<< "vitesse initiale de "<<bbb.WhatAmI()<<" "<<vitesseY<<endl;
-    aaa.Accelerate();
-    vitesseY = bbb.speed();
-    cout<< "vitesse finale de "<<bbb.WhatAmI()<<" "<<vitesseY<<endl;
+    //Deroulement de la course
+    while(finDeLaCourse==false){
+        cout<<"Tour "<<tour<<endl;
+        for(Character* n : course){
+            float vitesse = n->speed();
+            std::string nom = n->WhatAmI();
+            cout<<"Vitesse de "<< nom <<": "<<vitesse<<endl;
+            if(vitesse==n->max_speed()){
+                finDeLaCourse=true;
+                gagnant = n;
+            }
+            n->Accelerate();
+        }
+        tour++;
+    }
 
+    //Destruction des pointeurs
+    for(Character* n : course){
+    delete n;
+    }
 
-
-    /*
-    std::string nomM = aaa.WhatAmI();
-    cout<< "nom de Mario "<<nomM<<endl;
-    std::string nomY = bbb.WhatAmI();
-    cout<< "nom de Yoshi "<<nomY<<endl;
-    */
     return 0;
 }
