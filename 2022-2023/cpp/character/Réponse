@@ -1,0 +1,6 @@
+La fonction virtuelle WhatAmI a été créée dans l'optique d'être redéfinie plus tard, après définition des classes dérivées. Ainsi, lorsqu'il n'y a pas de classes dérivées, la classe ne peut pas être appelée seule, car elle contient une classe virtuelle. En effet, lors de la compilation le message d'erreur suivant est affiché :
+
+"error: no declaration matches ‘std::__cxx11::string Character::WhatAmI()’
+ virtual std::string Character::WhatAmI()"
+
+C'est normal, la classe Character ne sera pas utilisée directement, mais à travers les classes dérivées Mario et Yoshi, ce qui règlera ce problème.
